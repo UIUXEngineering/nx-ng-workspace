@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 
-# https://www.baeldung.com/linux/use-command-line-arguments-in-bash-script
-while getopts name:app-name: flag
+for ARGUMENT in "$@"
 do
-    case "${flag}" in
-        name) workspaceName=${OPTARG};;
-        app-name) appName=${OPTARG};;
-    esac
+   KEY=$(echo $ARGUMENT | cut -f1 -d=)
+
+   KEY_LENGTH=${#KEY}
+   VALUE="${ARGUMENT:$KEY_LENGTH+1}"
+
+   export "$KEY"="$VALUE"
 done
 
-echo "npx create-nx-workspace@latest --preset=angular-nest --name=$workspaceName --appName=$appName --style=scss"
+echo "name: $name"
+echo "appName: $appName"
+
+
+# echo "npx create-nx-workspace@latest --preset=angular-nest --name=$workspaceName --appName=$appName --style=scss"
 
 
 
 
 # Add Material
-npm install @angular/material && npx nx g @angular/material:ng-add
+# npm install @angular/material && npx nx g @angular/material:ng-add
