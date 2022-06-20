@@ -1,23 +1,37 @@
 #!/usr/bin/env bash
 
-for ARGUMENT in "$@"
+# https://pretzelhands.com/posts/command-line-flags/
+# Default values of arguments
+WORKSPACE_NAME="demo"
+APP_NAME="todo"
+
+# Loop through arguments and process them
+for arg in "$@"
 do
-   KEY=$(echo $ARGUMENT | cut -f1 -d=)
-
-   KEY_LENGTH=${#KEY}
-   VALUE="${ARGUMENT:$KEY_LENGTH+1}"
-
-   export "$KEY"="$VALUE"
+    case $arg in
+        -n=*|--name=*)
+        WORKSPACE_NAME="${arg#*=}"
+        shift # Remove argument name from processing
+        ;;
+        -a=*|--appName=*)
+        APP_NAME="${arg#*=}"
+        shift # Remove argument name from processing
+        ;;
+        *)
+    esac
 done
 
-echo "name: $name"
-echo "appName: $appName"
+echo "# workspace name: $WORKSPACE_NAME"
+echo "# App Name: $APP_NAME"
 
+npx create-nx-workspace@latest --preset=angular-nest --name="$WORKSPACE_NAME" --appName="$APP_NAME" --style=scss --nxCloud=false
 
-# echo "npx create-nx-workspace@latest --preset=angular-nest --name=$workspaceName --appName=$appName --style=scss"
-
-
-
+echo "cd $WORKSPACE_NAME"
+cd "$WORKSPACE_NAME";
 
 # Add Material
-# npm install @angular/material && npx nx g @angular/material:ng-add
+npm install @angular/material && npx nx g @angular/material:ng-add --project="$APP_NAME" --theme=custom --typography=true --animations=enabled
+
+git add .
+git commit -m "add angular material with custom theme configuration"
+
