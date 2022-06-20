@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
 # https://www.baeldung.com/linux/use-command-line-arguments-in-bash-script
-while getopts workspace-name: flag
+while getopts name:app-name: flag
 do
     case "${flag}" in
-        workspace-name) workspaceName=${OPTARG};;
+        name) workspaceName=${OPTARG};;
+        app-name) appName=${OPTARG};;
     esac
 done
 
-# Create Nx Workspace
-npx create-nx-workspace@latest --preset=angular-nest
+echo "npx create-nx-workspace@latest --preset=angular-nest --name=$workspaceName --appName=$appName --style=scss"
+
 
 
 
