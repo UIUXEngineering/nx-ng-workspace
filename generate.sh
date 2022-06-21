@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+NGRX_VERSION="14.0.0"
+
 # https://pretzelhands.com/posts/command-line-flags/
 # Default values of arguments
 WORKSPACE_NAME="demo"
@@ -35,3 +37,8 @@ npm install @angular/material && npx nx g @angular/material:ng-add --project="$A
 git add .
 git commit -m "add angular material with custom theme configuration"
 
+# Install version of RxJS to support NgRX
+npm install rxjs@~7.5.0
+
+npm install @ngrx/store@"$NGRX_VERSION" && npx nx g @ngrx/store:ng-add --project="$APP_NAME" --module=app.module.ts
+npm install @ngrx/store-devtools@"$NGRX_VERSION" && npx nx g @ngrx/store:ng-add --project="$APP_NAME" --module=app.module.ts
