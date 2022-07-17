@@ -42,3 +42,4 @@ npm install rxjs@~7.5.0
 
 npm install @ngrx/store@"$NGRX_VERSION" && npx nx g @ngrx/store:ng-add --project="$APP_NAME" --module=app.module.ts
 npm install @ngrx/store-devtools@"$NGRX_VERSION" && npx nx g @ngrx/store:ng-add --project="$APP_NAME" --module=app.module.ts
+npm install @ngrx/components@"$NGRX_VERSION" && npx nx g @ngrx/component:ng-add --project="$APP_NAME" --module=app.module.ts
